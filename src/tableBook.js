@@ -9,6 +9,7 @@
 import React from "react";
 import {AddBook} from './addBook';
 
+
 export class TableBook extends React.Component {
 
     constructor() {
@@ -18,6 +19,11 @@ export class TableBook extends React.Component {
             filteredBook: false,
             sortBook: false
         }
+    }
+
+    editBook(){
+        const editBook = require('./addBook');
+        editBook('edit');
     }
 
     refreshFilterString(event) {
@@ -97,7 +103,8 @@ export class TableBook extends React.Component {
                             <tbody>
                             {
                                 allBook.map((book, i) =>
-                                    <tr key={i}>
+                                    <tr key={i} data-toggle='modal'
+                                        data-target='#addElement'>
                                         {
                                             internalsBook.map((internal, i) =>
                                                 <td key={i}> {book[internal]} </td>)

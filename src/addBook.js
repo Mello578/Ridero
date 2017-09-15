@@ -6,7 +6,12 @@ import React from 'react';
 
 export class AddBook extends React.Component {
 
-    addBook() {
+    addBook(command) {
+
+        if(command === 'edit'){
+            let buttonDel = document.getElementById('buttonDeleteBook');
+            console.log(buttonDel)
+        }
         const fieldName = String(document.getElementById('name').value);
         const fieldAuthor = String(document.getElementById('author').value);
         const fieldStyle = String(document.getElementById('style').value);
@@ -46,8 +51,10 @@ export class AddBook extends React.Component {
         }
     }
 
+
     render() {
         const {headers, internalsBook} = this.props;
+        module.exports = this.addBook;
         return (
             <div id='addElement' className='modal fade'>
                 <div className='modal-dialog'>
@@ -69,6 +76,10 @@ export class AddBook extends React.Component {
                             <button type='button' className='btn btn-default buttonStyle'
                                     onClick={() => this.addBook()}>Добавить
                             </button>
+                            <button type='button' className='btn btn-default buttonStyle noDisplay'
+                                    id="buttonDeleteBook"
+                                    onClick={() => this.addBook()}>Удалить
+                            </button>
 
                         </div>
                     </div>
@@ -77,3 +88,4 @@ export class AddBook extends React.Component {
         )
     }
 }
+

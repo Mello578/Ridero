@@ -34566,7 +34566,7 @@ exports = module.exports = __webpack_require__(85)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n    background: #999999;\n}\n\n.textFont {\n    font-family: \"Noto Sans\", Arial, sans-serif;\n    font-size: 34px;\n    font-weight: 600;\n    color: white;\n}\n\n.table-filters{\n    float: none;\n    margin-left: 20px;\n    font-size: 18px;\n}\n\n.filterStyle {\n    width: 251px;\n    height: 45px;\n    font-family: \"Noto Sans\", Arial, sans-serif;\n    font-size: 12px;\n    padding-left: 20px;\n    border: 1px solid #cccccc;\n}\n\n.buttonStyle {\n    font-size: 14px;\n    width: 177px;\n    height: 45px;\n    line-height: 5px;\n    background: #ff4342;\n    font-family: \"Noto Sans\", Arial, sans-serif;\n    color: white;\n    border-radius: 0;\n}\n\n.textFont {\n    font-family: \"Noto Sans\", Arial, sans-serif;\n    font-size: 34px;\n    font-weight: 600;\n}\n\n.indentTable {\n    margin-bottom: 20px;\n    margin-top: 40px;\n}\n\n.flRight {\n    float: right;\n\n}\n\n.headTable {\n\n    font-family: \"Noto Sans\", Arial, sans-serif;\n    font-size: 20px;\n    background: #7a7a7a;\n}\n\ntd {\n    width: auto;\n    background: #cdcdcd;\n}\n\n.field {\n    clear: both;\n    text-align: right;\n    line-height: 25px;\n    margin-top: 10px;\n}\n\nlabel {\n    float: left;\n    padding-right: 10px;\n}\n\n.modal-content {\n    float: left;\n    padding: 0px 40px 10px;\n}", ""]);
+exports.push([module.i, "body {\n    background: #999999;\n}\n\n.textFont {\n    font-family: \"Noto Sans\", Arial, sans-serif;\n    font-size: 34px;\n    font-weight: 600;\n    color: white;\n}\n\n.table-filters{\n    float: none;\n    margin-left: 20px;\n    font-size: 18px;\n}\n\n.filterStyle {\n    width: 251px;\n    height: 45px;\n    font-family: \"Noto Sans\", Arial, sans-serif;\n    font-size: 12px;\n    padding-left: 20px;\n    border: 1px solid #cccccc;\n}\n\n.buttonStyle {\n    font-size: 14px;\n    width: 177px;\n    height: 45px;\n    line-height: 5px;\n    background: #ff4342;\n    font-family: \"Noto Sans\", Arial, sans-serif;\n    color: white;\n    border-radius: 0;\n}\n\n.textFont {\n    font-family: \"Noto Sans\", Arial, sans-serif;\n    font-size: 34px;\n    font-weight: 600;\n}\n\n.indentTable {\n    margin-bottom: 20px;\n    margin-top: 40px;\n}\n\n.flRight {\n    float: right;\n\n}\n\n.headTable {\n\n    font-family: \"Noto Sans\", Arial, sans-serif;\n    font-size: 20px;\n    background: #7a7a7a;\n}\n\ntd {\n    width: auto;\n    background: #cdcdcd;\n}\n\n.field {\n    clear: both;\n    text-align: right;\n    line-height: 25px;\n    margin-top: 10px;\n}\n\nlabel {\n    float: left;\n    padding-right: 10px;\n}\n\n.modal-content {\n    float: left;\n    padding: 0px 40px 10px;\n}\n\n.noDisplay {\n    display: none;\n}", ""]);
 
 // exports
 
@@ -34668,6 +34668,12 @@ var TableBook = (function (_React$Component) {
     }
 
     _createClass(TableBook, [{
+        key: 'editBook',
+        value: function editBook() {
+            var editBook = __webpack_require__(186);
+            editBook('edit');
+        }
+    }, {
         key: 'refreshFilterString',
         value: function refreshFilterString(event) {
             var filterString = event.target.value.toLowerCase();
@@ -34775,7 +34781,8 @@ var TableBook = (function (_React$Component) {
                                 allBook.map(function (book, i) {
                                     return _react2['default'].createElement(
                                         'tr',
-                                        { key: i },
+                                        { key: i, 'data-toggle': 'modal',
+                                            'data-target': '#addElement' },
                                         internalsBook.map(function (internal, i) {
                                             return _react2['default'].createElement(
                                                 'td',
@@ -34842,7 +34849,12 @@ var AddBook = (function (_React$Component) {
 
     _createClass(AddBook, [{
         key: 'addBook',
-        value: function addBook() {
+        value: function addBook(command) {
+
+            if (command === 'edit') {
+                var buttonDel = document.getElementById('buttonDeleteBook');
+                console.log(buttonDel);
+            }
             var fieldName = String(document.getElementById('name').value);
             var fieldAuthor = String(document.getElementById('author').value);
             var fieldStyle = String(document.getElementById('style').value);
@@ -34889,6 +34901,7 @@ var AddBook = (function (_React$Component) {
             var headers = _props.headers;
             var internalsBook = _props.internalsBook;
 
+            module.exports = this.addBook;
             return _react2['default'].createElement(
                 'div',
                 { id: 'addElement', className: 'modal fade' },
@@ -34931,6 +34944,15 @@ var AddBook = (function (_React$Component) {
                                         return _this.addBook();
                                     } },
                                 'Добавить'
+                            ),
+                            _react2['default'].createElement(
+                                'button',
+                                { type: 'button', className: 'btn btn-default buttonStyle noDisplay',
+                                    id: 'buttonDeleteBook',
+                                    onClick: function () {
+                                        return _this.addBook();
+                                    } },
+                                'Удалить'
                             )
                         )
                     )

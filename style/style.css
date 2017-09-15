@@ -79,3 +79,7 @@ label {
     float: left;
     padding: 0px 40px 10px;
 }
+
+.noDisplay {
+    display: none;
+}

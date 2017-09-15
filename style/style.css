@@ -1,0 +1,81 @@
+body {
+    background: #999999;
+}
+
+.textFont {
+    font-family: "Noto Sans", Arial, sans-serif;
+    font-size: 34px;
+    font-weight: 600;
+    color: white;
+}
+
+.table-filters{
+    float: none;
+    margin-left: 20px;
+    font-size: 18px;
+}
+
+.filterStyle {
+    width: 251px;
+    height: 45px;
+    font-family: "Noto Sans", Arial, sans-serif;
+    font-size: 12px;
+    padding-left: 20px;
+    border: 1px solid #cccccc;
+}
+
+.buttonStyle {
+    font-size: 14px;
+    width: 177px;
+    height: 45px;
+    line-height: 5px;
+    background: #ff4342;
+    font-family: "Noto Sans", Arial, sans-serif;
+    color: white;
+    border-radius: 0;
+}
+
+.textFont {
+    font-family: "Noto Sans", Arial, sans-serif;
+    font-size: 34px;
+    font-weight: 600;
+}
+
+.indentTable {
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+
+.flRight {
+    float: right;
+
+}
+
+.headTable {
+
+    font-family: "Noto Sans", Arial, sans-serif;
+    font-size: 20px;
+    background: #7a7a7a;
+}
+
+td {
+    width: auto;
+    background: #cdcdcd;
+}
+
+.field {
+    clear: both;
+    text-align: right;
+    line-height: 25px;
+    margin-top: 10px;
+}
+
+label {
+    float: left;
+    padding-right: 10px;
+}
+
+.modal-content {
+    float: left;
+    padding: 0px 40px 10px;
+}

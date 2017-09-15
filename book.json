@@ -1,0 +1,59 @@
+[
+  {
+    "id": "0",
+    "name": "Руслан и Людмила",
+    "author": "А.С. Пушкин",
+    "style": "Поэма",
+    "language": "Русский",
+    "year": "1820"
+  },
+  {
+    "id": "1",
+    "name": "Пророк",
+    "author": "А.С. Пушкин",
+    "style": "Стихотворение",
+    "language": "Русский",
+    "year": "1826"
+  },
+  {
+    "id": "2",
+    "name": "Крестьянские дети",
+    "author": "Н.А. Некрасов",
+    "style": "Стихотворение",
+    "language": "Русский",
+    "year": "1861"
+  },
+  {
+    "id": "3",
+    "name": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "style": "Сказка",
+    "language": "Английский",
+    "year": "1937"
+  },
+  {
+    "id": "4",
+    "name": "On a Pale Horse",
+    "author": "Piers Anthony",
+    "style": "Роман",
+    "language": "Английский",
+    "year": "1983"
+  },
+  {
+    "id": "5",
+    "name": "Faust. Eine Tragödie",
+    "author": "J.W. von Goethe",
+    "style": "Трагедия",
+    "language": "Немецкий",
+    "year": "1831"
+  },
+  {
+    "id": "6",
+    "name": "The Picture of Dorian Gray",
+    "author": "O.F.O.W. Wilde",
+    "style": "Роман",
+    "language": "Английский",
+    "year": "1890"
+  }
+]
+

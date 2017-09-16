@@ -17,13 +17,19 @@ export class TableBook extends React.Component {
         this.state = {
             filterString: '',
             filteredBook: false,
-            sortBook: false
+            sortBook: false,
+            addEditRemoveBook: ''
         }
     }
 
-    editBook(){
-        const editBook = require('./addBook');
-        editBook('edit');
+    editBook(mode) {
+        if (mode !== 'add' && mode !== '') {
+            $('#addElement').modal('show');
+            let rowIndex =  mode.target.parentNode.rowIndex - 1;
+            this.setState({addEditRemoveBook: rowIndex});
+        }else{
+            this.setState({addEditRemoveBook: mode});
+        }
     }
 
     refreshFilterString(event) {
@@ -60,6 +66,7 @@ export class TableBook extends React.Component {
         this.setState({sortBook: !this.state.sortBook});
     }
 
+
     render() {
         const headers = ['Книга', 'Автор', 'Стиль', 'Язык', 'Год'];
         const internalsBook = ['name', 'author', 'style', 'language', 'year'];
@@ -67,7 +74,7 @@ export class TableBook extends React.Component {
 
         return (
             <div>
-                <AddBook headers={headers} internalsBook={internalsBook}/>
+                <AddBook headers={headers} internalsBook={internalsBook} modeData={this.state.addEditRemoveBook}/>
                 <div className='row topBuffer'>
                     <div className='col-md-offset-1 col-sm-offset-1 col-md-10 col-sm-10'>
                         <div className="indentTable">
@@ -80,7 +87,8 @@ export class TableBook extends React.Component {
                                 <button type='button'
                                         className='btn btn-default buttonBorder buttonStyle'
                                         data-toggle='modal'
-                                        data-target='#addElement'>
+                                        data-target='#addElement'
+                                        onClick={() => this.editBook('add')}>
                                     Добавить
                                 </button>
                             </div>
@@ -91,7 +99,7 @@ export class TableBook extends React.Component {
                             <tr>
                                 {
                                     headers.map((item, id) =>
-                                        <td key={id} className="headTable"
+                                        <td key={id} className="headTable" data-toggle='modal' data-target='#addElement2'
                                             onClick={(event) => this.sortBook(event, internalsBook)}>
                                             {
                                                 item
@@ -102,9 +110,9 @@ export class TableBook extends React.Component {
                             </thead>
                             <tbody>
                             {
-                                allBook.map((book, i) =>
-                                    <tr key={i} data-toggle='modal'
-                                        data-target='#addElement'>
+                                allBook.map((book, id) =>
+                                    <tr key={id}  id={'book' + id}
+                                         onDoubleClick={(event) => this.editBook(event)}>
                                         {
                                             internalsBook.map((internal, i) =>
                                                 <td key={i}> {book[internal]} </td>)

@@ -6,17 +6,13 @@ import React from 'react';
 
 export class AddBook extends React.Component {
 
-    addBook(command) {
+    addBook() {
+        let fieldName = String(document.getElementById('name').value);
+        let fieldAuthor = String(document.getElementById('author').value);
+        let fieldStyle = String(document.getElementById('style').value);
+        let fieldLanguage = String(document.getElementById('language').value);
+        let fieldYear = String(document.getElementById('year').value);
 
-        if(command === 'edit'){
-            let buttonDel = document.getElementById('buttonDeleteBook');
-            console.log(buttonDel)
-        }
-        const fieldName = String(document.getElementById('name').value);
-        const fieldAuthor = String(document.getElementById('author').value);
-        const fieldStyle = String(document.getElementById('style').value);
-        const fieldLanguage = String(document.getElementById('language').value);
-        const fieldYear = String(document.getElementById('year').value);
 
         const checkNameBook = (field) => {
             const fieldName = document.getElementById(field);
@@ -40,8 +36,8 @@ export class AddBook extends React.Component {
             const refreshData = require('./index');
             refreshData();
 
-            this.props.internalsBook.forEach((item)=>{
-                if(document.getElementById(item).value !== ''){
+            this.props.internalsBook.forEach((item) => {
+                if (document.getElementById(item).value !== '') {
                     document.getElementById(item).value = '';
                 }
             })
@@ -51,10 +47,31 @@ export class AddBook extends React.Component {
         }
     }
 
+    addButton(mode) {
+        if (mode !== '') {
+            let buttonRemoveDisplay = document.getElementById('buttonDeleteBook');
+            buttonRemoveDisplay.style.display = (mode !== 'add' && mode !== '') ? 'block' : 'none';
+        }
+    }
+
+    addContent(item, index) {
+        if(index === 'add' || index === ''){
+            return ''
+        }else{
+            let selectedBook = JSON.parse(localStorage.getItem('book'));
+            selectedBook = selectedBook[index];
+
+            return selectedBook[item];
+
+        }
+
+    }
+
 
     render() {
-        const {headers, internalsBook} = this.props;
-        module.exports = this.addBook;
+        const {headers, internalsBook, modeData} = this.props;
+        (() => this.addButton(modeData))();
+
         return (
             <div id='addElement' className='modal fade'>
                 <div className='modal-dialog'>
@@ -64,7 +81,7 @@ export class AddBook extends React.Component {
                                 headers.map((header, index) =>
                                     <div className='field' key={index}>
                                         <label htmlFor={internalsBook[index]}>{header}:</label>
-                                        <input id={internalsBook[index]} type='text'/>
+                                        <input id={internalsBook[index]} type='text' value={this.addContent(internalsBook[index], modeData)}/>
                                     </div>
                                 )
                             }
@@ -76,7 +93,7 @@ export class AddBook extends React.Component {
                             <button type='button' className='btn btn-default buttonStyle'
                                     onClick={() => this.addBook()}>Добавить
                             </button>
-                            <button type='button' className='btn btn-default buttonStyle noDisplay'
+                            <button type='button' className='btn btn-default buttonStyle'
                                     id="buttonDeleteBook"
                                     onClick={() => this.addBook()}>Удалить
                             </button>

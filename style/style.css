@@ -80,6 +80,6 @@ label {
     padding: 0px 40px 10px;
 }
 
-.noDisplay {
-    display: none;
+#buttonDeleteBook{
+    margin-left: 182px;
 }

@@ -21,7 +21,7 @@ export class AddBook extends React.Component {
     }
 
     componentWillReceiveProps({selectedBook}) {
-         this.setState(selectedBook ? selectedBook : DEFAULT_BOOK);
+        this.setState(selectedBook ? selectedBook : DEFAULT_BOOK);
     }
 
 
@@ -38,12 +38,12 @@ export class AddBook extends React.Component {
                                     <div className='field' key={index}>
                                         <label htmlFor={header}>{bookFieldNames[header]}:</label>
                                         <input id={header} type='text' name='text'
-                                            value={this.state[header]}
-                                            onChange={(e) => {
-                                                this.setState({
-                                                    [header]: e.target.value
-                                                })
-                                            }}
+                                               value={this.state[header]}
+                                               onChange={(e) => {
+                                                   this.setState({
+                                                       [header]: e.target.value
+                                                   })
+                                               }}
                                         />
                                     </div>
                                 )

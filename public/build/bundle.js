@@ -10821,8 +10821,6 @@ var _reactDom = __webpack_require__(97);
 
 __webpack_require__(173);
 
-__webpack_require__(87);
-
 __webpack_require__(179);
 
 var _tableBook = __webpack_require__(181);
@@ -21275,14 +21273,29 @@ var TableBook = (function (_React$Component) {
             var numberBookInArray = books.findIndex(function (item) {
                 return editedBook.id === item.id;
             });
-            books.splice(numberBookInArray, 1, editedBook);
-            this.setBooks(books);
+            var testEdit = function testEdit(book, editBook) {
+                var differingField = 0;
+                for (var key in book) {
+                    book[key] !== editBook[key] ? differingField++ : differingField;
+                }
+                return differingField;
+            };
+            if (testEdit(books[numberBookInArray], editedBook)) {
+                books.splice(numberBookInArray, 1, editedBook);
+                this.setBooks(books);
+            } else {
+                alert('Ни одно из полей не редактировалось');
+            }
         }
     }, {
         key: 'addBook',
         value: function addBook(newBook) {
-            var books = this.state.books.concat(newBook);
-            this.setBooks(books);
+            if (newBook.name && newBook.author) {
+                var books = this.state.books.concat(newBook);
+                this.setBooks(books);
+            } else {
+                alert('Поля \'Книга\' и \'Автор\' - обязательны к заполнению');
+            }
         }
     }, {
         key: 'hideModalWindow',

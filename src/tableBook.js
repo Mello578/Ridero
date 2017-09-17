@@ -50,15 +50,32 @@ export class TableBook extends React.Component {
     editBook(editedBook) {
         let books = this.state.books;
         let numberBookInArray = books.findIndex((item) => {
-           return editedBook.id === item.id
+            return editedBook.id === item.id
         });
-        books.splice(numberBookInArray, 1, editedBook);
-        this.setBooks(books);
+        const testEdit = (book, editBook) => {
+            let differingField = 0;
+            for (let key in book) {
+                book[key] !== editBook[key] ? differingField++ : differingField;
+            }
+            return differingField;
+        };
+        if (testEdit(books[numberBookInArray], editedBook)) {
+            books.splice(numberBookInArray, 1, editedBook);
+            this.setBooks(books);
+        } else {
+            alert('Ни одно из полей не редактировалось');
+        }
+
     }
 
     addBook(newBook) {
-        let books = this.state.books.concat(newBook);
-        this.setBooks(books);
+        if (newBook.name && newBook.author) {
+            let books = this.state.books.concat(newBook);
+            this.setBooks(books);
+        } else {
+            alert('Поля \'Книга\' и \'Автор\' - обязательны к заполнению');
+        }
+
     }
 
     hideModalWindow() {

@@ -1,7 +1,6 @@
 import React from "react";
 import {render} from "react-dom";
 import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/fonts/glyphicons-halflings-regular.woff';
 import '..//style/style.css';
 import {TableBook} from './tableBook';
 

@@ -83,3 +83,7 @@ label {
 #buttonDeleteBook{
     margin-left: 182px;
 }
+
+.fade.in {
+    display: block;
+}

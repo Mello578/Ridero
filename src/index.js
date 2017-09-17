@@ -1,11 +1,9 @@
 import React from "react";
 import {render} from "react-dom";
-import 'bootstrap/dist/js/bootstrap.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/fonts/glyphicons-halflings-regular.woff';
 import '..//style/style.css';
 import {TableBook} from './tableBook';
-
 
 
 class App extends React.Component {
@@ -13,26 +11,23 @@ class App extends React.Component {
     render() {
 
         return (
-                <div className="workingField col-md-10 col-md-offset-1">
-                    <div className="container listEmployees col-md-offset-1">
-                        <div className="row">
-                            <div>
-                                <h1 className="textFont">Список книг</h1>
-                            </div>
+            <div className="workingField col-md-10 col-md-offset-1">
+                <div className="container listEmployees col-md-offset-1">
+                    <div className="row">
+                        <div>
+                            <h1 className="textFont">Список книг</h1>
                         </div>
                     </div>
-                    <TableBook
-                        allBook={this.props.allBook}
-                    />
                 </div>
+                <TableBook
+                    allBook={this.props.allBook}
+                />
+            </div>
         )
     }
 }
 
 (() => {
-    addData();
-
-function addData() {
     new Promise((resolve) => {
         const dataDownload = require('./dataDownload');
         resolve(dataDownload('book'));
@@ -40,7 +35,5 @@ function addData() {
         render(<App allBook={allBook}/>,
             document.getElementById('content'));
     });
-}
-    module.exports = addData;
 })();
 

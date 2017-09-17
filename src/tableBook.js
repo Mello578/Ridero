@@ -8,28 +8,51 @@
 
 import React from "react";
 import {AddBook} from './addBook';
+import {bookFieldNames} from './bookFieldNames';
 
 
 export class TableBook extends React.Component {
 
     constructor() {
         super();
+
         this.state = {
             filterString: '',
-            filteredBook: false,
             sortBook: false,
-            addEditRemoveBook: ''
-        }
+            isModalWindowOpened: false,
+            selectedBook: null,
+            books: JSON.parse(localStorage.getItem('book'))
+        };
     }
 
-    editBook(mode) {
-        if (mode !== 'add' && mode !== '') {
-            $('#addElement').modal('show');
-            let rowIndex =  mode.target.parentNode.rowIndex - 1;
-            this.setState({addEditRemoveBook: rowIndex});
-        }else{
-            this.setState({addEditRemoveBook: mode});
-        }
+    setBooks(books) {
+        this.setState({books});
+        localStorage.setItem('book', JSON.stringify(books));
+    }
+
+    showModalWindow(selectedBook) {
+        this.setState({
+            isModalWindowOpened: true,
+            selectedBook
+        });
+    }
+
+    deleteBook(book) {
+        console.log('delete: ', book);
+    }
+
+    editBook(editedBook) {
+        console.log('edit book: ', editedBook);
+    }
+
+    addBook(newBook) {
+        console.log('new book: ', newBook);
+    }
+
+    hideModalWindow() {
+        this.setState({
+            isModalWindowOpened: false
+        });
     }
 
     refreshFilterString(event) {
@@ -37,19 +60,20 @@ export class TableBook extends React.Component {
         this.setState({filterString});
     }
 
-    filterTable() {
+    getFilteredTable() {
+        const {allBook} = this.props;
         if (this.state.filterString) {
-            let allBook = this.props.allBook;
-            let displayBook = allBook.filter((item) => {
+            return allBook.filter((item) => {
                 for (let key in item) {
                     if (String(item[key]).toLowerCase().indexOf(this.state.filterString) > -1 && key !== 'id') {
-                        return true
+                        return true;
                     }
                 }
+
+                return false;
             });
-            return displayBook;
         } else {
-            return this.props.allBook
+            return allBook
         }
     }
 
@@ -68,13 +92,18 @@ export class TableBook extends React.Component {
 
 
     render() {
-        const headers = ['Книга', 'Автор', 'Стиль', 'Язык', 'Год'];
-        const internalsBook = ['name', 'author', 'style', 'language', 'year'];
-        let allBook = this.filterTable();
+        const bookFields = Object.keys(bookFieldNames);
+        const headers = bookFields.map((fieldName) => bookFieldNames[fieldName]);
+        let allBook = this.getFilteredTable();
 
         return (
             <div>
-                <AddBook headers={headers} internalsBook={internalsBook} modeData={this.state.addEditRemoveBook}/>
+                <AddBook selectedBook={this.state.selectedBook}
+                         visibility={this.state.isModalWindowOpened}
+                         onDelete={(book) => this.deleteBook(book)}
+                         onEdit={(book) => this.editBook(book)}
+                         onAdd={(book) => this.addBook(book)}
+                         onCancel={() => this.hideModalWindow()}/>
                 <div className='row topBuffer'>
                     <div className='col-md-offset-1 col-sm-offset-1 col-md-10 col-sm-10'>
                         <div className="indentTable">
@@ -86,9 +115,7 @@ export class TableBook extends React.Component {
                             <div className="flRight">
                                 <button type='button'
                                         className='btn btn-default buttonBorder buttonStyle'
-                                        data-toggle='modal'
-                                        data-target='#addElement'
-                                        onClick={() => this.editBook('add')}>
+                                        onClick={() => this.showModalWindow(null)}>
                                     Добавить
                                 </button>
                             </div>
@@ -99,8 +126,8 @@ export class TableBook extends React.Component {
                             <tr>
                                 {
                                     headers.map((item, id) =>
-                                        <td key={id} className="headTable" data-toggle='modal' data-target='#addElement2'
-                                            onClick={(event) => this.sortBook(event, internalsBook)}>
+                                        <td key={id} className="headTable"
+                                            onClick={(event) => this.sortBook(event, bookFields)}>
                                             {
                                                 item
                                             }
@@ -111,10 +138,11 @@ export class TableBook extends React.Component {
                             <tbody>
                             {
                                 allBook.map((book, id) =>
-                                    <tr key={id}  id={'book' + id}
-                                         onDoubleClick={(event) => this.editBook(event)}>
+                                    <tr key={id} id={'book' + id}
+                                        onDoubleClick={(event) => this.showModalWindow(book)}
+                                    >
                                         {
-                                            internalsBook.map((internal, i) =>
+                                            bookFields.map((internal, i) =>
                                                 <td key={i}> {book[internal]} </td>)
                                         }
                                     </tr>

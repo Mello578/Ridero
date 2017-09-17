@@ -15,7 +15,6 @@ export class TableBook extends React.Component {
 
     constructor() {
         super();
-
         this.state = {
             filterString: '',
             sortBook: false,
@@ -23,6 +22,10 @@ export class TableBook extends React.Component {
             selectedBook: null,
             books: JSON.parse(localStorage.getItem('book'))
         };
+    }
+
+    getLocalStorageData() {
+        return JSON.parse(localStorage.getItem('book'));
     }
 
     setBooks(books) {
@@ -38,15 +41,24 @@ export class TableBook extends React.Component {
     }
 
     deleteBook(book) {
-        console.log('delete: ', book);
+        let books = this.state.books.filter((item) => {
+            return item.id !== book.id
+        });
+        this.setBooks(books);
     }
 
     editBook(editedBook) {
-        console.log('edit book: ', editedBook);
+        let books = this.state.books;
+        let numberBookInArray = books.findIndex((item) => {
+           return editedBook.id === item.id
+        });
+        books.splice(numberBookInArray, 1, editedBook);
+        this.setBooks(books);
     }
 
     addBook(newBook) {
-        console.log('new book: ', newBook);
+        let books = this.state.books.concat(newBook);
+        this.setBooks(books);
     }
 
     hideModalWindow() {
@@ -61,7 +73,7 @@ export class TableBook extends React.Component {
     }
 
     getFilteredTable() {
-        const {allBook} = this.props;
+        let {allBook} = this.props;
         if (this.state.filterString) {
             return allBook.filter((item) => {
                 for (let key in item) {
@@ -73,7 +85,7 @@ export class TableBook extends React.Component {
                 return false;
             });
         } else {
-            return allBook
+            return this.state.books;
         }
     }
 
